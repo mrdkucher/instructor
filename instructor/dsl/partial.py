@@ -128,7 +128,7 @@ class PartialBase(Generic[T_Model]):
         potential_object = ""
         partial_model = cls.get_partial_model()
         for chunk in json_chunks:
-            potential_object += chunk
+            potential_object += chunk.strip()
             obj = from_json((potential_object or "{}").encode(), partial_mode="on")
             obj = partial_model.model_validate(obj, strict=None, **kwargs)
             yield obj
@@ -140,7 +140,7 @@ class PartialBase(Generic[T_Model]):
         potential_object = ""
         partial_model = cls.get_partial_model()
         async for chunk in json_chunks:
-            potential_object += chunk
+            potential_object += chunk.strip()
             obj = from_json((potential_object or "{}").encode(), partial_mode="on")
             obj = partial_model.model_validate(obj, strict=None, **kwargs)
             yield obj
